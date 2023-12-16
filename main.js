@@ -1,9 +1,10 @@
 var LRM = require('leaflet-routing-machine');
 
 var map = L.map('map').setView([40.7831, -73.9712], 16);
-L.tileLayer('{https://github.com/karunaket/College-Navigation-System/blob/main/map.geojson}/{z}/{x}/{y}.png', {
+L.tileLayer('{https://karunaket.github.io/College-Navigation-System/}/map.geojson/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
+
 
 var startMarker, destinationMarker;
 
