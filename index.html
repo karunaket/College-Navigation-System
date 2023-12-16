@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>College Campus Navigation</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div id="map"></div>
+    <input type="text" id="start" placeholder="Enter your starting location">
+    <input type="text" id="destination" placeholder="Enter your destination">
+    <button onclick="navigate()">Navigate</button>
+    <script src="https://unpkg.com/nominatim@0.3.5/dist/nominatim.min.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@3.3.3/dist/leaflet-routing-machine.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
