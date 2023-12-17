@@ -1,16 +1,64 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>College Campus Navigation</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" referrerpolicy="no-referrer" />
+	<title>College Navigation System</title>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+
 </head>
+
 <body>
-    <div id="map"></div>
-    <input type="text" id="start" placeholder="Enter your starting location">
-    <input type="text" id="destination" placeholder="Enter your destination">
-    <button onclick="navigate()">Navigate</button>
-    <script src="https://unpkg.com/nominatim@0.3.5/dist/nominatim.min.js"></script>
-    <script src="https://unpkg.com/leaflet-routing-machine@3.3.3/dist/leaflet-routing-machine.min.js"></script>
-    <script src="main.js"></script>
+	<div id="map" style="width:100%; height: 100vh"></div>
+	<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
+	<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
+
+	<script>
+
+		var map = L.map('map').setView([11.077161, 77.142164], 1100);
+		mapLink = "<a href='http://openstreetmap.org'>OpenStreetMap</a>";
+		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: 'Leaflet &copy; ' + mapLink + ', contribution', maxZoom: 18 }).addTo(map);
+
+		var taxiIcon = L.icon({
+			iconUrl: 'img/taxi.png',
+			iconSize: [50, 50]
+		})
+
+		var marker = L.marker([11.077737627877733, 77.1421823100496], { icon: taxiIcon }).addTo(map);
+
+		map.on('click', function (e) {
+			console.log(e)
+			var newMarker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
+			L.Routing.control({
+				waypoints: [
+					L.latLng(11.077737627877733, 77.1421823100496),
+					L.latLng(e.latlng.lat, e.latlng.lng)
+				]
+			}).on('routesfound', function (e) {
+				var routes = e.routes;
+				console.log(routes);
+
+				e.routes[0].coordinates.forEach(function (coord, index) {
+					setTimeout(function () {
+						marker.setLatLng([coord.lat, coord.lng]);
+					}, 100 * index)
+				})
+
+			}).addTo(map);
+		});
+
+
+	</script>
+
+
 </body>
+
 </html>
